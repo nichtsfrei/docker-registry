@@ -136,7 +136,7 @@ const REGEX: &str = r#"(?x)\s*
     \s*
         =
     \s*
-        "(?P<value>[^"]+)"
+        "?(?P<value>[^"]+)"?
     \s*
 )
 "#;
@@ -395,6 +395,7 @@ mod tests {
       HeaderValue::from_str(&format!(r#"BASIC realm="{realm}""#)).unwrap(),
       HeaderValue::from_str(&format!(r#"Basic Realm="{realm}""#)).unwrap(),
       HeaderValue::from_str(&format!(r#"Basic REALM="{realm}""#)).unwrap(),
+      HeaderValue::from_str(&format!(r#"Basic realm={realm}"#)).unwrap(),
     ]
     .iter()
     {
